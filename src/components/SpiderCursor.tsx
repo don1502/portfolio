@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 const SpiderCursor: React.FC = () => {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [isVisible, setIsVisible] = useState(false);
     const [isMoving, setIsMoving] = useState(false);
     const [rotation, setRotation] = useState(0);
+    const [legPhase, setLegPhase] = useState(0);
+    const animationRef = useRef<number | undefined>(undefined);
 
     useEffect(() => {
-        let timeoutId: ReturnType<typeof setTimeout>;
         let lastX = 0;
         let lastY = 0;
+        let timeoutId: ReturnType<typeof setTimeout>;
 
         const updatePosition = (e: MouseEvent) => {
-            // Calculate rotation based on movement direction
             const dx = e.clientX - lastX;
             const dy = e.clientY - lastY;
 
-            if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
+            if (Math.abs(dx) > 0.5 || Math.abs(dy) > 0.5) {
                 const angle = Math.atan2(dy, dx) * (180 / Math.PI);
-                setRotation(angle + 90); // Add 90deg to align spider head
+                setRotation(angle + 90);
                 setIsMoving(true);
             }
 
@@ -28,11 +29,8 @@ const SpiderCursor: React.FC = () => {
             lastX = e.clientX;
             lastY = e.clientY;
 
-            // Reset moving state when cursor stops
             clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => {
-                setIsMoving(false);
-            }, 100);
+            timeoutId = setTimeout(() => setIsMoving(false), 150);
         };
 
         const handleMouseLeave = () => setIsVisible(false);
@@ -50,46 +48,90 @@ const SpiderCursor: React.FC = () => {
         };
     }, []);
 
+    // Walking animation loop
+    useEffect(() => {
+        if (isMoving) {
+            const animate = () => {
+                setLegPhase(prev => (prev + 0.3) % (Math.PI * 2));
+                animationRef.current = requestAnimationFrame(animate);
+            };
+            animationRef.current = requestAnimationFrame(animate);
+        } else {
+            if (animationRef.current) {
+                cancelAnimationFrame(animationRef.current);
+            }
+        }
+        return () => {
+            if (animationRef.current) {
+                cancelAnimationFrame(animationRef.current);
+            }
+        };
+    }, [isMoving]);
+
     if (!isVisible) return null;
+
+    // Calculate leg positions based on phase
+    const legSwing = isMoving ? Math.sin(legPhase) * 8 : 0;
+    const legSwingAlt = isMoving ? Math.sin(legPhase + Math.PI) * 8 : 0;
 
     return (
         <div
-            className="fixed pointer-events-none z-[100] transition-transform duration-100 ease-out will-change-transform"
+            className="fixed pointer-events-none z-[100] will-change-transform"
             style={{
                 left: `${position.x}px`,
                 top: `${position.y}px`,
-                transform: `translate(-50%, -50%) rotate(${rotation}deg)`
+                transform: `translate(-50%, -50%) rotate(${rotation}deg)`,
+                transition: 'transform 0.1s ease-out'
             }}
         >
-            {/* Spider SVG */}
             <svg
-                width="40"
-                height="40"
-                viewBox="0 0 24 24"
+                width="60"
+                height="60"
+                viewBox="0 0 100 100"
                 fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={`text-spiderman-red drop-shadow-lg filter shadow-spiderman-blue/50 ${isMoving ? 'animate-pulse' : ''}`}
+                className="drop-shadow-lg"
+                style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))' }}
             >
-                <circle cx="12" cy="12" r="4" fill="#E23636" className="opacity-80" />
-                <path d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" fill="#0c1445" />
+                {/* Body - Abdomen */}
+                <ellipse cx="50" cy="58" rx="14" ry="18" fill="#E23636" stroke="#b91c1c" strokeWidth="1" />
+                <ellipse cx="50" cy="58" rx="10" ry="14" fill="#dc2626" />
+                {/* Black marking */}
+                <path d="M50 50 L46 56 L50 62 L54 56 Z" fill="#0c1445" />
 
-                {/* Legs Left */}
-                <path d="M8 10L4 7" />
-                <path d="M8 12L3 12" />
-                <path d="M8 14L4 17" />
-                <path d="M9 15L6 19" />
+                {/* Body - Cephalothorax */}
+                <ellipse cx="50" cy="35" rx="10" ry="12" fill="#E23636" stroke="#b91c1c" strokeWidth="1" />
+                <ellipse cx="50" cy="35" rx="7" ry="9" fill="#dc2626" />
 
-                {/* Legs Right */}
-                <path d="M16 10L20 7" />
-                <path d="M16 12L21 12" />
-                <path d="M16 14L20 17" />
-                <path d="M15 15L18 19" />
+                {/* Eyes */}
+                <circle cx="46" cy="30" r="3" fill="white" stroke="#333" strokeWidth="0.5" />
+                <circle cx="54" cy="30" r="3" fill="white" stroke="#333" strokeWidth="0.5" />
+                <circle cx="46" cy="30" r="1.5" fill="#111" />
+                <circle cx="54" cy="30" r="1.5" fill="#111" />
 
-                {/* String (Web) - Optional visual flair */}
-                <path d="M12 8L12 2" className="opacity-30" strokeDasharray="2 2" />
+                {/* Legs - Left Side */}
+                <g style={{ transform: `translateY(${legSwing}px)`, transformOrigin: '50px 40px' }}>
+                    <path d="M42 35 Q 30 25 18 20 Q 12 18 8 25" stroke="#E23636" strokeWidth="3" fill="none" strokeLinecap="round" />
+                    <path d="M42 50 Q 25 50 10 55 Q 5 57 2 65" stroke="#E23636" strokeWidth="3" fill="none" strokeLinecap="round" />
+                </g>
+                <g style={{ transform: `translateY(${legSwingAlt}px)`, transformOrigin: '50px 40px' }}>
+                    <path d="M42 40 Q 28 35 15 35 Q 8 35 5 42" stroke="#E23636" strokeWidth="3" fill="none" strokeLinecap="round" />
+                    <path d="M42 55 Q 28 60 15 70 Q 8 75 5 82" stroke="#E23636" strokeWidth="3" fill="none" strokeLinecap="round" />
+                </g>
+
+                {/* Legs - Right Side */}
+                <g style={{ transform: `translateY(${legSwingAlt}px)`, transformOrigin: '50px 40px' }}>
+                    <path d="M58 35 Q 70 25 82 20 Q 88 18 92 25" stroke="#E23636" strokeWidth="3" fill="none" strokeLinecap="round" />
+                    <path d="M58 50 Q 75 50 90 55 Q 95 57 98 65" stroke="#E23636" strokeWidth="3" fill="none" strokeLinecap="round" />
+                </g>
+                <g style={{ transform: `translateY(${legSwing}px)`, transformOrigin: '50px 40px' }}>
+                    <path d="M58 40 Q 72 35 85 35 Q 92 35 95 42" stroke="#E23636" strokeWidth="3" fill="none" strokeLinecap="round" />
+                    <path d="M58 55 Q 72 60 85 70 Q 92 75 95 82" stroke="#E23636" strokeWidth="3" fill="none" strokeLinecap="round" />
+                </g>
+
+                {/* Web thread trailing */}
+                {isMoving && (
+                    <line x1="50" y1="76" x2="50" y2="100" stroke="rgba(255,255,255,0.3)" strokeWidth="0.5" strokeDasharray="2 2" />
+                )}
             </svg>
         </div>
     );

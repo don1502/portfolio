@@ -1,6 +1,7 @@
 import React from 'react';
 import { Github, Linkedin, Mail, FileText } from 'lucide-react';
 import SpiderCursor from './SpiderCursor';
+import donImage from '../assets/don_image.jpeg';
 
 const Hero: React.FC = () => {
     return (
@@ -12,7 +13,7 @@ const Hero: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/50 to-slate-900 z-0"></div>
 
             {/* Decorative Webs */}
-            <div className="absolute top-0 left-0 w-64 h-64 opacity-30 pointer-events-none">
+            <div className="absolute top-0 left-0 w-64 h-64 opacity-30 pointer-events-none animate-pulse">
                 <svg viewBox="0 0 100 100" fill="none" stroke="rgba(249, 249, 249, 0.7)" strokeWidth="0.5">
                     <path d="M0 0 Q 50 50 100 0 M0 0 Q 50 50 0 100 M0 0 L 100 100" />
                     <circle cx="0" cy="0" r="20" />
@@ -21,7 +22,7 @@ const Hero: React.FC = () => {
                     <circle cx="0" cy="0" r="80" />
                 </svg>
             </div>
-            <div className="absolute bottom-0 right-0 w-96 h-96 opacity-30 pointer-events-none rotate-180">
+            <div className="absolute bottom-0 right-0 w-96 h-96 opacity-30 pointer-events-none rotate-180 animate-pulse">
                 <svg viewBox="0 0 100 100" fill="none" stroke="rgba(241, 241, 241, 0.7)" strokeWidth="0.5">
                     <path d="M0 0 Q 50 50 100 0 M0 0 Q 50 50 0 100 M0 0 L 100 100" />
                     <circle cx="0" cy="0" r="20" />
@@ -37,14 +38,11 @@ const Hero: React.FC = () => {
                     {/* Image Placeholder */}
                     <div className="w-48 h-48 md:w-56 md:h-56 rounded-full border-4 border-spiderman-red/50 shadow-2xl shadow-spiderman-blue/20 mb-8 overflow-hidden relative group">
                         <div className="absolute inset-0 bg-slate-800 flex items-center justify-center group-hover:bg-slate-700 transition-colors">
-                            <span className="text-gray-500 text-sm font-medium">Add Image Here</span>
+                            <span className="text-gray-500 text-sm font-medium"></span>
                         </div>
-                        {/* <img src="/path/to/image.jpg" alt="Profile" className="w-full h-full object-cover" /> */}
+                        <img src={donImage} alt="Profile" className="w-full h-full object-cover relative z-10" />
                     </div>
 
-                    <h2 className="text-spiderman-blue font-bold tracking-widest uppercase mb-4 text-sm md:text-base">
-                        Portfolio
-                    </h2>
                     <h1 className="text-5xl md:text-7xl lg:text-8xl font-header font-bold text-white mb-6 tracking-tight">
                         <span className="text-spiderman-red inline-block hover:animate-spider-sense cursor-default">HI, I'M DON CHRIST G.</span> <br />
                     </h1>
