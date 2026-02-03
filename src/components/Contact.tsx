@@ -21,7 +21,7 @@ const Contact: React.FC = () => {
                                 <div className="w-16 h-16 bg-slate-700 rounded-full flex items-center justify-center mb-4 group-hover:bg-spiderman-red transition-colors duration-300">
                                     <Mail size={32} className="text-white" />
                                 </div>
-                                <span className="text-gray-300 group-hover:text-white transition-colors">dongomez1502@gmail.com</span>
+                                <span className="text-gray-300 group-hover:text-white transition-colors">Mail</span>
                             </a>
 
                             <a href="https://www.linkedin.com/in/don-gomez-759515290/" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center group">
@@ -41,8 +41,7 @@ const Contact: React.FC = () => {
 
                         <div className="pt-8 border-t border-slate-700">
                             <p className="text-gray-500 text-sm">
-                                &copy; {new Date().getFullYear()} Don Christ G. All rights reserved. <br />
-                                Built with <span className="text-spiderman-red">React</span> & <span className="text-spiderman-blue">Tailwind</span>.
+                                &copy; {new Date().getFullYear()} Don Christ G. All rights reserved.
                             </p>
                         </div>
                     </div>

@@ -17,7 +17,7 @@ const Projects: React.FC = () => {
             description: "Full-stack platform built with React & Node.js using PostgreSQL. Features optimized schema design and secure CRUD operations.",
             tags: ["React", "Node.js", "PostgreSQL", "Express"],
             github: "https://github.com/don1502/E-commerce",
-            demo: "#", // Add demo link if available
+            demo: null,
             image: "https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" // Placeholder
         },
         {
@@ -32,9 +32,9 @@ const Projects: React.FC = () => {
             title: "Voice-to-Text Application",
             description: "Real-time speech-to-text app with multi-language support. Built with React, Tailwind, and integrated MySQL for data storage.",
             tags: ["React", "Tailwind", "MySQL", "Speech API"],
-            github: "https://github.com/don1502/VOICE-TEX",
+            github: "https://github.com/don1502/VOICE-TEXT",
             demo: null,
-            image: "https://images.unsplash.com/photo-1589254065878-42c9da9e2059?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" // Placeholder
+            image: "https://i.pinimg.com/736x/ce/11/4b/ce114b1e553511f1cbfa1d7ae3e428a1.jpg" // Placeholder
         }
     ];
 

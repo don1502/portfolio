@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin, Mail, FileText } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 import SpiderCursor from './SpiderCursor';
 import donImage from '../assets/don_image.jpeg';
 
@@ -14,7 +14,7 @@ const Hero: React.FC = () => {
 
             {/* Decorative Webs */}
             <div className="absolute top-0 left-0 w-64 h-64 opacity-30 pointer-events-none animate-pulse">
-                <svg viewBox="0 0 100 100" fill="none" stroke="rgba(249, 249, 249, 0.7)" strokeWidth="0.5">
+                <svg viewBox="0 0 100 100" fill="none" stroke="rgba(249, 249, 249, 0.7)" strokeWidth="0.7">
                     <path d="M0 0 Q 50 50 100 0 M0 0 Q 50 50 0 100 M0 0 L 100 100" />
                     <circle cx="0" cy="0" r="20" />
                     <circle cx="0" cy="0" r="40" />
@@ -23,7 +23,7 @@ const Hero: React.FC = () => {
                 </svg>
             </div>
             <div className="absolute bottom-0 right-0 w-96 h-96 opacity-30 pointer-events-none rotate-180 animate-pulse">
-                <svg viewBox="0 0 100 100" fill="none" stroke="rgba(241, 241, 241, 0.7)" strokeWidth="0.5">
+                <svg viewBox="0 0 100 100" fill="none" stroke="rgba(241, 241, 241, 0.7)" strokeWidth="0.9">
                     <path d="M0 0 Q 50 50 100 0 M0 0 Q 50 50 0 100 M0 0 L 100 100" />
                     <circle cx="0" cy="0" r="20" />
                     <circle cx="0" cy="0" r="40" />
@@ -44,10 +44,10 @@ const Hero: React.FC = () => {
                     </div>
 
                     <h1 className="text-5xl md:text-7xl lg:text-8xl font-header font-bold text-white mb-6 tracking-tight">
-                        <span className="text-spiderman-red inline-block hover:animate-spider-sense cursor-default">HI, I'M DON CHRIST G.</span> <br />
+                        <span className="text-spiderman-red inline-block hover:animate-spider-sense cursor-default">HI, I'M DON CHRIST G</span> <br />
                     </h1>
                     <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto mb-10 font-light">
-                        Your Friendly Neighborhood <span className="text-spiderman-blue font-semibold">Software Developer</span>.
+                        Your Friendly Neighborhood <span className="text-spiderman-red font-semibold">Software Developer</span>.
                         Building web apps, AI models, and saving the web one line of code at a time.
                     </p>
 
@@ -70,8 +70,6 @@ const Hero: React.FC = () => {
                         <SocialLink href="https://github.com/don1502" icon={<Github size={24} />} label="GitHub" />
                         <SocialLink href="https://www.linkedin.com/in/don-gomez-759515290/" icon={<Linkedin size={24} />} label="LinkedIn" />
                         <SocialLink href="mailto:dongomez1502@gmail.com" icon={<Mail size={24} />} label="Email" />
-                        {/* Resume Link - Placeholder for now or direct link if hosted */}
-                        <SocialLink href="#" icon={<FileText size={24} />} label="Resume" />
                     </div>
                 </div>
             </div>
