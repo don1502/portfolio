@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-slate-900 text-white font-body;
   }
@@ -25,4 +29,48 @@
     linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   background-size: 20px 20px, 40px 40px, 40px 40px;
+}
+
+/* Lazy Section Animations */
+.lazy-section {
+  will-change: opacity, transform;
+}
+
+.lazy-section--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger animation for children inside lazy sections */
+.lazy-section--visible>* {
+  animation: fadeSlideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0.8;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .lazy-section {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .lazy-section--visible>* {
+    animation: none !important;
+  }
 }

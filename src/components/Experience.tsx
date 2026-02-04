@@ -252,7 +252,7 @@ const ExperienceContent: React.FC = () => {
 
                                 {/* Card - Offset from center */}
                                 <div className={`w-full md:w-5/12 ${index % 2 === 0 ? 'md:mr-auto md:pr-8' : 'md:ml-auto md:pl-8'} pl-16 md:pl-0`}>
-                                    <div className={`bg-slate-800/90 backdrop-blur-sm p-6 rounded-xl border border-slate-700 hover:border-spiderman-blue transition-all duration-300 hover:shadow-xl hover:shadow-spiderman-blue/20 relative ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
+                                    <div className={`bg-slate-800/90 backdrop-blur-sm p-6 rounded-xl border border-slate-700 hover:border-spiderman-blue transition-all duration-300 hover:shadow-xl hover:shadow-spiderman-blue/20 hover:scale-105 transform cursor-pointer relative ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
 
                                         <div className={`flex items-center gap-2 mb-2 ${index % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}`}>
                                             <Briefcase size={18} className="text-spiderman-red" />
